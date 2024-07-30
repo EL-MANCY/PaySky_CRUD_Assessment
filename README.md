@@ -8,9 +8,6 @@ PaySky CRUD Assessment is an Android application built to demonstrate CRUD (Crea
 - [Technologies Used](#technologies-used)
 - [Architecture](#architecture)
 - [Setup and Installation](#setup-and-installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
