@@ -38,33 +38,7 @@ class PostsFragment : Fragment(), OnPostClickListener {
         super.onViewCreated(view, savedInstanceState)
         postsViewModel.getPosts()
         observeStates()
-
-        binding.fabAddItem.setOnClickListener {
-            AddEditPostDialogFragment() { title, body ->
-                postsViewModel.createPost(
-                    Post(
-                        (Math.random() * 10000).toInt(),
-                        (Math.random() * 10000).toInt(),
-                        title,
-                        body
-                    )
-                )
-            }.show(parentFragmentManager, "EditPostDialog")
-        }
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                handleSearch(query)
-                return true
-            }
-
-            override fun onQueryTextChange(query: String?): Boolean {
-                lifecycleScope.launchWhenResumed {
-                    handleSearch(query)
-                }
-                return true
-            }
-        })
+        setListenere()
     }
 
     private fun observeStates() {
@@ -135,5 +109,34 @@ class PostsFragment : Fragment(), OnPostClickListener {
 
     override fun onDeletePostClick(post: Post) {
         postsViewModel.deletePost(post.id)
+    }
+
+    fun setListenere() {
+        binding.fabAddItem.setOnClickListener {
+            AddEditPostDialogFragment() { title, body ->
+                postsViewModel.createPost(
+                    Post(
+                        (Math.random() * 10000).toInt(),
+                        (Math.random() * 10000).toInt(),
+                        title,
+                        body
+                    )
+                )
+            }.show(parentFragmentManager, "EditPostDialog")
+        }
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                handleSearch(query)
+                return true
+            }
+
+            override fun onQueryTextChange(query: String?): Boolean {
+                lifecycleScope.launchWhenResumed {
+                    handleSearch(query)
+                }
+                return true
+            }
+        })
     }
 }
